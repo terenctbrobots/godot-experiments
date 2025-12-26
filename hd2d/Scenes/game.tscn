@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpgwqhtb4r2a8"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_wowpa"]
+[ext_resource type="PackedScene" uid="uid://cv0f0x823fase" path="res://Scenes/Levels/end_of_time.tscn" id="1_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://sxu15clvoxyx" path="res://Scenes/Characters/chrono.tscn" id="2_3dryh"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="3_wowpa"]
+[ext_resource type="Script" path="res://Scripts/fade.gd" id="4_3dryh"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_wowpa")
+
+[node name="EndOfTime" parent="." instance=ExtResource("1_wrm1d")]
+
+[node name="Chrono" parent="." instance=ExtResource("2_3dryh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+
+[node name="Player" type="Node" parent="Chrono"]
+script = ExtResource("3_wowpa")
+
+[node name="Camera" type="Camera3D" parent="Chrono"]
+unique_name_in_owner = true
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 3, 5, 5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_3dryh")

@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dayfn1n3gipyh"]
+
+[ext_resource type="Texture2D" uid="uid://cxcbvog7k57j8" path="res://Assets/EndOfTime/Platform/platformA.png" id="1_iwrmy"]
+[ext_resource type="Texture2D" uid="uid://cepj5ymx4yv7i" path="res://Assets/EndOfTime/Platform/platformA_Normal.png" id="2_m0eul"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_iwrmy")
+metallic = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_m0eul")
+texture_filter = 0

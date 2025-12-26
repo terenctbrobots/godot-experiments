@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://wblat20o31km"]
+
+[ext_resource type="Texture2D" uid="uid://ba42ukj3uxt3r" path="res://Assets/EndOfTime/Paths/Stairs_0.png" id="1_cbqvc"]
+[ext_resource type="Texture2D" uid="uid://cepj5ymx4yv7i" path="res://Assets/EndOfTime/Platform/platformA_Normal.png" id="2_5pouj"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_cbqvc")
+metallic = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_5pouj")
+texture_filter = 0

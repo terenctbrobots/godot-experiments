@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b2xneoxru5bpm"]
+
+[ext_resource type="Texture2D" uid="uid://d0p2berbylsmw" path="res://Assets/EndOfTime/Fence/Fence-Full_0.png" id="1_btboh"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_btboh")
+metallic = 1.0
+roughness = 0.5
+texture_filter = 0

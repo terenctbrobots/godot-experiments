@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dkb6i382yxdx"]
+
+[ext_resource type="Texture2D" uid="uid://cts2dj6ew8rvr" path="res://Assets/EndOfTime/Decor/lamp.png" id="1_33v6n"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_33v6n")
+metallic = 0.75
+metallic_specular = 0.75
+roughness = 0.25

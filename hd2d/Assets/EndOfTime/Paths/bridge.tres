@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bayr2y7ruw2ao"]
+
+[ext_resource type="Texture2D" uid="uid://trfvocpnijxh" path="res://Assets/EndOfTime/Paths/Bridge_0.png" id="1_aldy7"]
+[ext_resource type="Texture2D" uid="uid://cdjjf0gfnd1qv" path="res://Assets/EndOfTime/Paths/Walkway_Normal.png" id="2_vopmv"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_aldy7")
+metallic = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_vopmv")
+texture_filter = 0

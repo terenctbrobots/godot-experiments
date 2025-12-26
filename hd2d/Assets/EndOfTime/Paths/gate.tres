@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dfowq35ctvkld"]
+
+[ext_resource type="Texture2D" uid="uid://uburk73ub6m8" path="res://Assets/EndOfTime/Paths/wood.png" id="1_be7fg"]
+[ext_resource type="Texture2D" uid="uid://bw3b7qay3c3wk" path="res://Assets/EndOfTime/Paths/wood-Normal.png" id="2_8xryy"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("1_be7fg")
+normal_enabled = true
+normal_texture = ExtResource("2_8xryy")
+texture_filter = 0

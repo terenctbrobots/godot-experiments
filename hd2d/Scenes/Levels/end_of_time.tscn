@@ -1,0 +1,450 @@
+[gd_scene load_steps=35 format=3 uid="uid://cv0f0x823fase"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_wch28"]
+[ext_resource type="Texture2D" uid="uid://vx3tando66v8" path="res://Assets/EndOfTime/background.png" id="2_yw24q"]
+[ext_resource type="PackedScene" uid="uid://0hg25ip3i0mw" path="res://Assets/EndOfTime/Paths/Door-Frame.gltf" id="4_8jpl2"]
+[ext_resource type="PackedScene" uid="uid://dqa5y3tb041uy" path="res://Assets/EndOfTime/Paths/Door.gltf" id="5_oihu1"]
+[ext_resource type="PackedScene" uid="uid://dyxcjwwlwcx3m" path="res://Assets/EndOfTime/Platform/PlatformA.gltf" id="5_qqjo0"]
+[ext_resource type="Shader" path="res://skew.gdshader" id="5_su13l"]
+[ext_resource type="PackedScene" uid="uid://bsw32f45xtrxi" path="res://Assets/EndOfTime/Paths/DoorStairs.gltf" id="5_txtty"]
+[ext_resource type="PackedScene" uid="uid://clynlu3k7jfdy" path="res://Assets/EndOfTime/Platform/PlatformB.gltf" id="6_vddtx"]
+[ext_resource type="Script" path="res://Scripts/flicker.gd" id="7_qqjo0"]
+[ext_resource type="PackedScene" uid="uid://criqixcb2ldus" path="res://Assets/EndOfTime/Decor/Lamp.gltf" id="8_vddtx"]
+[ext_resource type="PackedScene" uid="uid://bfohht1ptypqn" path="res://Assets/EndOfTime/Fence/Fence-Full.gltf" id="9_1ti5y"]
+[ext_resource type="Script" path="res://Scripts/gate.gd" id="10_s0oe2"]
+[ext_resource type="PackedScene" uid="uid://bfqhu26j3f13a" path="res://Assets/EndOfTime/Fence/Fence-Open.gltf" id="10_wn0ov"]
+[ext_resource type="PackedScene" uid="uid://c028xef664hnj" path="res://Assets/EndOfTime/Paths/Stairs.gltf" id="11_g51vc"]
+[ext_resource type="PackedScene" uid="uid://ct7e0y58on5qg" path="res://Assets/EndOfTime/Decor/Plant.gltf" id="11_sicvb"]
+[ext_resource type="PackedScene" uid="uid://vrauoxl082ss" path="res://Assets/EndOfTime/Pillar.gltf" id="11_vw8e8"]
+[ext_resource type="PackedScene" uid="uid://co4ywmtkg7jvn" path="res://Assets/EndOfTime/Decor/Water.gltf" id="12_0vtbj"]
+[ext_resource type="Script" path="res://Scripts/spin.gd" id="12_du2ki"]
+[ext_resource type="PackedScene" uid="uid://bveaabq3s0a6l" path="res://Assets/EndOfTime/Fence/Fence-Stairs.gltf" id="12_hahdm"]
+[ext_resource type="PackedScene" uid="uid://bx5wx5q28l5gb" path="res://Assets/EndOfTime/Paths/Door-Short.gltf" id="12_httyr"]
+[ext_resource type="PackedScene" uid="uid://cnua4g55bo6uw" path="res://Assets/EndOfTime/Bottom.gltf" id="13_8d2fx"]
+[ext_resource type="PackedScene" uid="uid://dasvd7wbgb3v4" path="res://Assets/EndOfTime/Paths/Bridge.gltf" id="13_b8wj4"]
+[ext_resource type="PackedScene" uid="uid://c8kjey6p62ikc" path="res://Assets/EndOfTime/Paths/Post.gltf" id="13_s0oe2"]
+[ext_resource type="PackedScene" uid="uid://cp1s6cgsryi4g" path="res://Assets/EndOfTime/Paths/Bridge-Wall.gltf" id="14_sicvb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hahdm"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_b8wj4"]
+sky_material = SubResource("ProceduralSkyMaterial_hahdm")
+
+[sub_resource type="Environment" id="Environment_sicvb"]
+background_mode = 3
+sky = SubResource("Sky_b8wj4")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+glow_enabled = true
+glow_bloom = 1.0
+fog_enabled = true
+fog_light_color = Color(0, 0.0627451, 0.12549, 1)
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.0313726, 0.0627451, 0.12549, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxjj3"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 0.501961, 1)
+emission_enabled = true
+emission = Color(1, 1, 0.501961, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5kcxu"]
+material = SubResource("StandardMaterial3D_kxjj3")
+radius = 0.15
+height = 0.75
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_httyr"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hahdm"]
+size = Vector3(0, 3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5kcxu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vddtx"]
+shader = ExtResource("5_su13l")
+shader_parameter/scroll = Vector2(-32, 32)
+shader_parameter/speed = 1.0
+shader_parameter/wave_height = 16.0
+
+[sub_resource type="GDScript" id="GDScript_fgedv"]
+script/source = "extends TextureRect
+
+#@export var _scroll_speed : Vector2
+#
+#func _process(delta: float) -> void:
+	#position += _scroll_speed * delta
+	#if position.x < -size.x or position.y > 0:
+		#print(\"!\")
+		#position.x += size.x
+		#position.y -= size.y
+	##position.x = wrapf(position.x, -size.x, 0)
+	##position.y = wrapf(position.y, -size.y, 0)
+"
+
+[node name="EndOfTime" type="Node3D"]
+script = ExtResource("1_wch28")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -9, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.548527, 0.836133, 0, -0.836133, 0.548527, 0, -9, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sicvb")
+
+[node name="Rooms" type="Node3D" parent="."]
+
+[node name="LampRoom" parent="Rooms" instance=ExtResource("5_qqjo0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+
+[node name="FenceSouth" parent="Rooms/LampRoom" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.875, 9, 4.5)
+
+[node name="FenceWest" parent="Rooms/LampRoom" instance=ExtResource("10_wn0ov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 9, -1.25)
+
+[node name="FenceEast" parent="Rooms/LampRoom" instance=ExtResource("10_wn0ov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 9, -1.25)
+
+[node name="FenceNorth" parent="Rooms/LampRoom" instance=ExtResource("10_wn0ov")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.25, 9, -4.5)
+
+[node name="Lamp" parent="Rooms/LampRoom" instance=ExtResource("8_vddtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.938, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Rooms/LampRoom/Lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("SphereMesh_5kcxu")
+
+[node name="WestStairs" parent="Rooms/LampRoom" instance=ExtResource("11_g51vc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.5, 8, -3)
+
+[node name="Gate" type="Node3D" parent="Rooms/LampRoom/WestStairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.92044, 1, 3)
+script = ExtResource("10_s0oe2")
+_open_trans = 9
+_open_ease = 1
+_close_trans = 1
+_close_ease = 1
+_reverse_swing = true
+
+[node name="Trigger" type="Area3D" parent="Rooms/LampRoom/WestStairs/Gate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rooms/LampRoom/WestStairs/Gate/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_httyr")
+
+[node name="Hinge" type="Node3D" parent="Rooms/LampRoom/WestStairs/Gate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 1.2, 0.999509)
+
+[node name="Gate" parent="Rooms/LampRoom/WestStairs/Gate/Hinge" instance=ExtResource("12_httyr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 0, -1.59531)
+
+[node name="StairFence1" parent="Rooms/LampRoom/WestStairs" instance=ExtResource("12_hahdm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.69, 2.182)
+
+[node name="StairFence2" parent="Rooms/LampRoom/WestStairs" instance=ExtResource("12_hahdm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.69, 0.182)
+
+[node name="PlatformB" parent="Rooms/LampRoom/WestStairs" instance=ExtResource("6_vddtx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, -7, 3)
+
+[node name="FenceSouth" parent="Rooms/LampRoom/WestStairs/PlatformB" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.875, 9, 4.5)
+
+[node name="FenceNorth" parent="Rooms/LampRoom/WestStairs/PlatformB" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 9, 4.875)
+
+[node name="FenceEast" parent="Rooms/LampRoom/WestStairs/PlatformB" instance=ExtResource("10_wn0ov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 9, -1.25)
+
+[node name="FenceNorth2" parent="Rooms/LampRoom/WestStairs/PlatformB" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.875, 9, -4.5)
+
+[node name="LightPillar0" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.01, 0)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar0" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar0" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar1" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.01, 0)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar1" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar1" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar2" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9.01, 0)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar2" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar2" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar6" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.01, 2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar6" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar6" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar7" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.01, 2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar7" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar7" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar8" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9.01, 2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar8" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar8" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar3" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.01, -2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar3" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar3" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar4" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.01, -2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar4" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar4" instance=ExtResource("13_8d2fx")]
+
+[node name="LightPillar5" type="Node3D" parent="Rooms/LampRoom/WestStairs/PlatformB"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 9.01, -2)
+script = ExtResource("12_du2ki")
+_alpha_range = Vector2(0.25, 0.75)
+_height_range = Vector2(1, 1.2)
+_emission_range = Vector2(0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+light_energy = 16.0
+light_size = 1.0
+shadow_enabled = true
+
+[node name="LightPillar" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar5" instance=ExtResource("11_vw8e8")]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Bottom" parent="Rooms/LampRoom/WestStairs/PlatformB/LightPillar5" instance=ExtResource("13_8d2fx")]
+
+[node name="PostNorth" parent="Rooms/LampRoom/WestStairs" instance=ExtResource("13_s0oe2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 3, 2)
+
+[node name="PostSouth" parent="Rooms/LampRoom/WestStairs" instance=ExtResource("13_s0oe2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15, 3, 4.5)
+
+[node name="EastStairs" parent="Rooms/LampRoom" instance=ExtResource("13_b8wj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1, 8.5, -1)
+
+[node name="BridgeWall1" parent="Rooms/LampRoom/EastStairs" instance=ExtResource("14_sicvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.603, 2.85, 2.013)
+
+[node name="BridgeWall2" parent="Rooms/LampRoom/EastStairs" instance=ExtResource("14_sicvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.603, 2.85, -0.48887)
+
+[node name="InvisibleWall" type="StaticBody3D" parent="Rooms/LampRoom/EastStairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rooms/LampRoom/EastStairs/InvisibleWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1)
+shape = SubResource("BoxShape3D_hahdm")
+
+[node name="PlantEast" parent="Rooms/LampRoom" instance=ExtResource("11_sicvb")]
+transform = Transform3D(-0.999987, 0, -0.00514878, 0, 1, 0, 0.00514878, 0, -0.999987, 4.5, 10, -3)
+
+[node name="PlantWest" parent="Rooms/LampRoom" instance=ExtResource("11_sicvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 10, 3)
+
+[node name="Bucket" parent="Rooms/LampRoom" instance=ExtResource("12_0vtbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 10, -3.5)
+
+[node name="SpekiosRoom" type="Node3D" parent="Rooms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -9)
+visible = false
+
+[node name="PlatformA" parent="Rooms/SpekiosRoom" instance=ExtResource("5_qqjo0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+
+[node name="FenceEast" parent="Rooms/SpekiosRoom/PlatformA" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5, 9, -4.875)
+
+[node name="FenceNorth" parent="Rooms/SpekiosRoom/PlatformA" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -4.875, 9, -4.5)
+
+[node name="FenceWest" parent="Rooms/SpekiosRoom/PlatformA" instance=ExtResource("9_1ti5y")]
+transform = Transform3D(1, 0, 5.56363e-08, 0, 1, 0, -5.56363e-08, 0, 1, -4.5, 9, 4.875)
+
+[node name="FenceSouth" parent="Rooms/SpekiosRoom/PlatformA" instance=ExtResource("10_wn0ov")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.2, 9, 4.5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Rooms/SpekiosRoom"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="Door" parent="." instance=ExtResource("4_8jpl2")]
+transform = Transform3D(1, 0, 5.56363e-08, 0, 1, 0, -5.56363e-08, 0, 1, -0.487149, 2.82055, -4.5)
+script = ExtResource("10_s0oe2")
+room_id = Array[int]([1, 0])
+_open_trans = 9
+_open_ease = 1
+_close_trans = 1
+_close_ease = 1
+_duration = 0.5
+
+[node name="Hinge" type="Node3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.15)
+
+[node name="Door" parent="Door/Hinge" instance=ExtResource("5_oihu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, -0.0749998)
+
+[node name="DoorStairs" parent="Door" instance=ExtResource("5_txtty")]
+transform = Transform3D(0.999956, 0, -0.0093898, 0, 1, 0, 0.0093898, 0, 0.999956, 0, -2.07, 1)
+
+[node name="Trigger" type="Area3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -2, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Trigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_5kcxu")
+
+[node name="LampLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+light_energy = 16.0
+light_size = 0.5
+light_cull_mask = 4294967039
+shadow_enabled = true
+omni_range = 9.0
+script = ExtResource("7_qqjo0")
+_energy_levels = Array[float]([8.0, 16.0])
+
+[node name="Flicker" type="Timer" parent="LampLight"]
+autostart = true
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_vddtx")
+offset_top = -1794.0
+offset_right = 768.0
+offset_bottom = -1161.0
+scale = Vector2(4, 4)
+texture = ExtResource("2_yw24q")
+stretch_mode = 1
+script = SubResource("GDScript_fgedv")
+
+[node name="Transitions" type="Node3D" parent="."]
+
+[connection signal="body_entered" from="Rooms/LampRoom/WestStairs/Gate/Trigger" to="Rooms/LampRoom/WestStairs/Gate" method="_on_trigger_body_entered"]
+[connection signal="player_walked_through_door" from="Door" to="." method="room_transition"]
+[connection signal="body_entered" from="Door/Trigger" to="Door" method="_on_trigger_body_entered"]
+[connection signal="body_exited" from="Door/Trigger" to="Door" method="_on_trigger_body_exited"]
+[connection signal="timeout" from="LampLight/Flicker" to="LampLight" method="flicker"]
